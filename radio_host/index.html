@@ -108,60 +108,46 @@
 <body>
 
 <!-- HEADER -->
-<div class="header">
-	<div class="header_top">
-		<div class="container">
-			<div class="col-sm-6 header-top-left">
-				<div class="box">
-					<select tabindex="4" class="dropdown drop">
-						<option value="" class="label" value="">Pesos (ARS)</option>
-						<option value="1">Pesos (ARS)</option>
-					</select>
-				</div>
-				<div class="box1">
-					<select tabindex="4" class="dropdown">
-						<option value="" class="label" value="">Español</option>
-						<option value="1">Español</option>
-					</select>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			<div class="col-sm-6 header-top-right">
-				<div class="col-xs-7 phone"><p>Soporte 24/7 info@RadioHost.com</p></div>
-				<div class="clearfix"></div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
+<div class="header" style="background: transparent; margin: 0; padding: 0;">
+	<div class="container" style="padding: 20px 0 10px 0;">
 
-	<div class="container">
-		<div class="header_bottom">
-			<div class="col-xs-3 logo">
-				<a href="index.html"><img src="images/logo.png" alt=""/></a>
+		<!-- Top Row: Logo, Título y Menú -->
+		<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+			
+			<!-- Logo + Título -->
+			<div style="display: flex; align-items: center; gap: 12px;">
+				<img src="images/logo.png" alt="Logo Radio Host" style="height: 40px;">
+				<h1 style="color: white; font-size: 1.2em; margin: 0; line-height: 1.2;">
+					Web Hosting empresarial - <br>Radio Host
+				</h1>
 			</div>
-			<div class="col-xs-9 header_nav">
-				<div class="col-md-6 menu">
-					<a class="toggleMenu" href="#"><img src="images/nav_icon.png" alt="" /> </a>
-					<ul class="nav" id="nav">
-						<li class="current"><a href="index.html">Inicio</a></li>
-						<li><a href="#planes">Planes</a></li>
-						<li><a href="#nosotros">Nosotros</a></li>
-					</ul>
-					<script type="text/javascript" src="js/responsive-nav.js"></script>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
 
-	<div class="header_bot_grid">
-		<h1>Web Hosting empresarial - Radio Host</h1>
-		<div class="header-btns">
-			<a class="plans btn btn-primary1 btn-normal btn-inline" href="#planes">Ver planes</a>
+			<!-- Menú -->
+			<nav>
+				<ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; font-weight: bold;">
+					<li><a href="index.html" style="text-decoration: none; color: white;">INICIO</a></li>
+					<li><a href="#planes" style="text-decoration: none; color: white;">PLANES</a></li>
+					<li><a href="#nosotros" style="text-decoration: none; color: white;">NOSOTROS</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<!-- VER PLANES Button -->
+		<div class="header-btns" style="text-align: center; margin-top: 20px; margin-bottom: 0;">
+			<a class="plans btn btn-primary1 btn-normal btn-inline" href="#planes" style="
+				background: #1a1aff;
+				color: white;
+				padding: 10px 22px;
+				border-radius: 30px;
+				text-decoration: none;
+				font-weight: bold;
+				transition: 0.3s;
+			">VER PLANES</a>
 		</div>
 	</div>
 </div>
+
+
 
 <!-- VENTAJAS -->
 <div class="content_top">
