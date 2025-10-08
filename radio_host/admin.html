@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel de Solicitudes | Radio Host</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Lato", system-ui, sans-serif; color: #fff; height: 100vh; overflow: hidden; }
+
+/* Video de fondo */
+#bgVideo { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+
+/* Login */
+.login-container {
+  position: relative;
+  max-width: 380px;
+  margin: 120px auto;
+  padding: 40px 30px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.login-container:hover { transform: translateY(-4px); }
+.login-header h2 { margin-bottom: 6px; font-weight: 800; color: #fff; }
+.login-header p { margin-bottom: 20px; font-weight: 400; color: #e0e0e0; font-size: 14px; }
+.login-container input { width: 100%; padding: 14px 16px; margin: 10px 0; border-radius: 12px; border: 1px solid rgba(255,255,255,0.5); font-size: 14px; background: rgba(255,255,255,0.1); color: #fff; }
+.login-container input::placeholder { color: rgba(255,255,255,0.7); }
+.login-container input:focus { border-color: #2aa6ff; outline: none; background: rgba(255,255,255,0.15); }
+.login-container button { width: 100%; padding: 14px 16px; margin-top: 14px; background: #2aa6ff; color: white; font-weight: 700; font-size: 15px; border: none; border-radius: 12px; cursor: pointer; }
+.login-container button:hover { background: #1f8dd6; transform: translateY(-2px); }
+
+/* Panel de solicitudes */
+#panelDiv { max-width: 1200px; margin: 40px auto; display: none; color: #fff; }
+#panelDiv h1 { text-align: center; margin-bottom: 30px; font-weight: 700; }
+.clear-btn { background: #ff4d4d; color: white; padding: 10px 16px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-bottom: 20px; }
+
+/* Tabla */
+table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.6); border-radius: 12px; overflow: hidden; }
+th, td { padding: 14px 12px; text-align: left; font-size: 14px; vertical-align: top; }
+th { background: rgba(55,70,84,0.9); color: white; font-weight: 700; text-transform: uppercase; }
+
+/* Botones de estado */
+.status-btn { padding: 6px 12px; margin: 2px; border: none; border-radius: 6px; color: white; font-weight: 600; font-size: 12px; cursor: pointer; }
+.s-Nueva { background: #fbbf24; color: #212529; }
+.s-Atendido { background: #28a745; }
+.s-Revision { background: #0dcaf0; }
+.s-Falta { background: #dc3545; }
+
+/* Nota editable */
+.note-input { width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 13px; }
+.note-input:focus { border-color: #2aa6ff; outline: none; }
+
+/* Botón eliminar fila */
+.delete-btn { background: #ff6b6b; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin: 2px; font-weight: 600; font-size: 12px; }
+.delete-btn:hover { background: #e63939; }
+
+/* Mensaje largo */
+.message-cell { max-width: 200px; white-space: pre-wrap; word-wrap: break-word; overflow: auto; }
+
+/* Modal Factura Profesional */
+#invoiceModal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 999; }
+#invoiceModal .modal-content {
+  background:#fff;
+  color:#000;
+  padding:30px 40px;
+  border-radius:16px;
+  width:90%;
+  max-width:650px;
+  position: relative;
+  font-family:'Lato', sans-serif;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Close */
+#invoiceModal .close-btn { position:absolute; top:15px; right:15px; background:#ff4d4d; color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; }
+
+/* Form Inputs */
+#invoiceModal input { width: 100%; padding: 10px; margin-bottom:10px; border-radius:6px; border:1px solid #ccc; font-size:14px; }
+
+/* Encabezado factura */
+#invoiceHeader { text-align:center; margin-bottom:25px; }
+#invoiceHeader img { max-width:130px; margin-bottom:10px; }
+#invoiceHeader h2 { font-size:28px; margin-bottom:5px; }
+#invoiceHeader p { font-size:14px; color:#555; }
+
+/* Tabla interna factura */
+#invoiceForm table { width: 100%; border-collapse: collapse; margin-top:20px; font-size:14px; }
+#invoiceForm th, #invoiceForm td { border:1px solid #ccc; padding:12px; text-align:left; }
+#invoiceForm th { background:#2aa6ff; color:#fff; font-weight:700; }
+#invoiceForm tr:nth-child(even) { background:#f9f9f9; }
+
+/* Total destacado */
+#totalRow td { font-weight:700; font-size:16px; text-align:right; background:#dfe6e9; }
+
+/* Botón PDF */
+#invoiceModal button.pdf-btn { background:#28a745; color:#fff; padding:12px; border:none; border-radius:8px; cursor:pointer; margin-top:20px; width:100%; font-weight:700; font-size:16px; }
+
+@media(max-width: 900px) { 
+  table, th, td { font-size: 13px; } 
+  .status-btn, .delete-btn { padding: 5px 10px; font-size: 11px; } 
+}
+</style>
+</head>
+<body>
+
+<video id="bgVideo" autoplay muted loop>
+  <source src="video/fondo.mp4" type="video/mp4">
+</video>
+
+<!-- Login -->
+<div id="loginDiv" class="login-container">
+  <div class="login-header">
+    <h2>Acceso Panel</h2>
+    <p>Ingresa tus credenciales</p>
+  </div>
+  <input type="text" id="username" placeholder="Usuario">
+  <input type="password" id="password" placeholder="Contraseña">
+  <button onclick="login()">Ingresar</button>
+</div>
+
+<!-- Panel de solicitudes -->
+<div id="panelDiv">
+  <h1>Panel de Solicitudes</h1>
+  <div style="display:flex; gap:10px; margin-bottom:20px;">
+    <button class="clear-btn" onclick="clearAll()">Eliminar todos los envíos</button>
+    <button class="clear-btn" style="background:#2aa6ff;" onclick="openInvoice()">Crear Factura</button>
+  </div>
+  <table id="tableSubmissions">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Plan</th>
+        <th>Mensaje</th>
+        <th>Estado</th>
+        <th>Nota</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<!-- Modal Factura Profesional -->
+<div id="invoiceModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeInvoice()">X</button>
+    <div id="invoiceHeader">
+      <img src="images/logo.png" alt="Logo">
+      <h2>Factura</h2>
+      <p>Radio Host - Web Hosting Argentina</p>
+    </div>
+    <div id="invoiceForm">
+      <label>Fecha:</label>
+      <input type="date" id="invFecha">
+      <label>Nombre del cliente:</label>
+      <input type="text" id="invNombre" placeholder="Nombre del cliente">
+      <label>Email:</label>
+      <input type="email" id="invEmail" placeholder="Email">
+      <label>Teléfono:</label>
+      <input type="text" id="invTelefono" placeholder="Teléfono">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="invPlan" placeholder="Plan"></td>
+            <td><input type="number" id="invPrecio" placeholder="Precio"></td>
+          </tr>
+          <tr id="totalRow">
+            <td>Total</td>
+            <td id="invTotal">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="pdf-btn" onclick="downloadInvoicePDF()">Descargar PDF</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+const STORAGE_KEY = "rh_submissions_v3";
+const VALID_USER = "admin";
+const VALID_PASS = "1234";
+
+// LOGIN
+function login(){
+  const u = document.getElementById('username').value;
+  const p = document.getElementById('password').value;
+  if(u===VALID_USER && p===VALID_PASS){
+    document.getElementById('loginDiv').style.display='none';
+    document.getElementById('panelDiv').style.display='block';
+    renderTable();
+  } else { alert("Usuario o contraseña incorrectos"); }
+}
+
+// TABLE
+function renderTable(){
+  const tbody = document.querySelector('#tableSubmissions tbody');
+  tbody.innerHTML = "";
+  const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  if(arr.length===0){ 
+    tbody.innerHTML='<tr><td colspan="9" style="text-align:center;">No hay envíos guardados</td></tr>'; 
+    return; 
+  }
+  arr.forEach((item,index)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td>${new Date(item.created_at).toLocaleString()}</td>
+      <td>${item.fullname}</td>
+      <td>${item.email}</td>
+      <td>${item.phone}</td>
+      <td>${item.plan}</td>
+      <td class="message-cell">${item.message || ''}</td>
+      <td><span class="status-btn s-${item.status}">${item.status}</span></td>
+      <td><input class="note-input" value="${item.note||''}" onchange="updateNote(${index},this.value)"></td>
+      <td>
+        <button class="status-btn s-Atendido" onclick="updateStatus(${index},'Atendido')">Atendido</button>
+        <button class="status-btn s-Revision" onclick="updateStatus(${index},'Revision')">Revisión</button>
+        <button class="status-btn s-Falta" onclick="updateStatus(${index},'Falta')">Falta</button>
+        <button class="delete-btn" onclick="deleteEntry(${index})">Eliminar</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateStatus(i,status){
+  const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+  arr[i].status=status;
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));
+  renderTable();
+}
+
+function updateNote(i,v){
+  const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+  arr[i].note=v;
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));
+}
+
+function deleteEntry(i){
+  if(confirm("¿Seguro que querés eliminar este envío?")){
+    const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+    arr.splice(i,1);
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));
+    renderTable();
+  }
+}
+
+function clearAll(){
+  if(confirm("¿Seguro que querés eliminar todos los envíos?")){
+    localStorage.removeItem(STORAGE_KEY);
+    renderTable();
+  }
+}
+
+// FACTURA EDITABLE
+function openInvoice(){ 
+  document.getElementById('invoiceModal').style.display='flex'; 
+  updateTotal();
+}
+function closeInvoice(){ document.getElementById('invoiceModal').style.display='none'; }
+
+// Actualiza el total automáticamente
+document.getElementById('invPrecio').addEventListener('input', updateTotal);
+function updateTotal(){
+  const precio = parseFloat(document.getElementById('invPrecio').value)||0;
+  document.getElementById('invTotal').textContent = precio.toFixed(2);
+}
+
+// DESCARGAR PDF PROFESIONAL
+function downloadInvoicePDF(){
+  const invoiceContent = document.createElement('div');
+  invoiceContent.style.padding = '20px';
+  invoiceContent.style.fontFamily = 'Lato, sans-serif';
+  invoiceContent.style.background = '#fff';
+  invoiceContent.style.width = '100%';
+  invoiceContent.style.maxWidth = '650px';
+  invoiceContent.style.borderRadius = '16px';
+
+  // Encabezado
+  const header = document.getElementById('invoiceHeader').cloneNode(true);
+  invoiceContent.appendChild(header);
+
+  // Tabla
+  const table = document.createElement('table');
+  table.style.width='100%';
+  table.style.borderCollapse='collapse';
+  table.style.marginTop='20px';
+
+  const trHead = document.createElement('tr');
+  ['Plan','Precio'].forEach(text => {
+    const th = document.createElement('th');
+    th.textContent=text;
+    th.style.background='#2aa6ff';
+    th.style.color='#fff';
+    th.style.padding='12px';
+    trHead.appendChild(th);
+  });
+  table.appendChild(trHead);
+
+  const trPlan = document.createElement('tr');
+  const tdPlan = document.createElement('td'); tdPlan.textContent=document.getElementById('invPlan').value||''; tdPlan.style.padding='12px';
+  const tdPrecio = document.createElement('td'); tdPrecio.textContent=document.getElementById('invPrecio').value||'0'; tdPrecio.style.padding='12px';
+  trPlan.appendChild(tdPlan); trPlan.appendChild(tdPrecio);
+  table.appendChild(trPlan);
+
+  const trTotal = document.createElement('tr');
+  const tdTotalLabel = document.createElement('td'); tdTotalLabel.textContent='Total'; tdTotalLabel.style.fontWeight='700'; tdTotalLabel.style.padding='12px'; tdTotalLabel.style.textAlign='right';
+  const tdTotal = document.createElement('td'); tdTotal.textContent = document.getElementById('invTotal').textContent; tdTotal.style.fontWeight='700'; tdTotal.style.padding='12px';
+  trTotal.appendChild(tdTotalLabel); trTotal.appendChild(tdTotal);
+  table.appendChild(trTotal);
+
+  invoiceContent.appendChild(table);
+
+  html2pdf().set({
+    margin:0.5,
+    filename:`Factura_${document.getElementById('invNombre').value||'cliente'}.pdf`,
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2},
+    jsPDF:{unit:'in',format:'letter',orientation:'portrait'}
+  }).from(invoiceContent).save();
+}
+</script>
+
+<!--SEGURIDAD-->
+
+<script src="js/lock-site.js"></script>
+
+
+</body>
+</html>

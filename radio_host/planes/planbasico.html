@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Planes | Radio Host</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f3f4f6;
+      --card-bg: #ffffff;
+      --head-bg: #374654;
+      --price-blue: #2aa6ff;
+      --muted: #6b7280;
+      --shadow: 0 6px 18px rgba(20,30,40,0.08);
+      --shadow-strong: 0 18px 40px rgba(20,30,40,0.12);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Lato",system-ui,sans-serif;background:var(--bg);color:#222;padding:40px 18px 80px;display:flex;justify-content:center;}
+    .btn-close{position:fixed;right:22px;top:22px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,0,0,0.55);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(255,0,0,0.5);transition:transform .12s ease,background .12s ease;z-index:999;}
+    .btn-close:hover{transform:scale(1.06);background:rgba(255,0,0,0.8);}
+    .wrap{width:100%;max-width:1100px;text-align:center;}
+    header{margin-bottom:32px;}
+    header h1{margin:0;font-size:28px;font-weight:800;color:#111827;}
+    header p{margin-top:8px;color:var(--muted);font-weight:300;}
+
+    /* Contenedor de planes */
+    .plans {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 26px;
+      margin-top: 10px;
+    }
+
+    /* Cada card */
+    .card {
+      flex: 1 1 calc(33.333% - 26px); /* Hasta 3 por fila */
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .22s ease, box-shadow .22s ease;
+      margin-bottom: 26px;
+      min-height: 400px; /* altura uniforme */
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:var(--shadow-strong);}
+    .card .head{background:var(--head-bg);color:#fff;padding:20px 18px;text-align:center;}
+    .card .head h3{margin:0;font-size:20px;font-weight:800;letter-spacing:1px;}
+    .card .head .price{margin-top:8px;font-size:16px;color:var(--price-blue);font-weight:700;}
+    .card .body{padding:18px 22px;flex:1;}
+    .card ul{list-style:none;margin:0;padding:0;}
+    .card li{padding:12px 0;font-size:14px;color:#333;border-bottom:1px solid rgba(0,0,0,0.06);}
+    .card li:last-child{border-bottom:none;padding-bottom:0;}
+    .buy-row{margin-top:16px;display:flex;justify-content:center;}
+    .btn-buy{background:var(--price-blue);border:none;color:white;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700;box-shadow:0 8px 18px rgba(42,166,255,0.18);transition:transform .12s ease;}
+    .btn-buy:hover{transform:translateY(-2px);}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:1200;opacity:0;pointer-events:none;transition:opacity .18s ease;}
+    .modal-backdrop.show{opacity:1;pointer-events:auto;}
+    .modal{width:100%;max-width:520px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 24px 60px rgba(15,20,30,0.35);}
+    .modal header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+    .modal h2{margin:0;font-size:18px;}
+    .modal .close{background:transparent;border:none;font-size:20px;cursor:pointer;color:#374654;}
+    .form-row{display:flex;gap:10px;margin-bottom:10px;}
+    .form-row .field{flex:1;display:flex;flex-direction:column;}
+    label{font-size:13px;color:#374654;margin-bottom:6px;font-weight:700;}
+    input,select,textarea{padding:10px 12px;border-radius:8px;border:1px solid #e6e9ee;font-size:14px;}
+    .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;}
+    .btn-submit{background:#111827;color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700;}
+    .btn-muted{background:#f3f4f6;border:none;color:#333;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700;}
+    #formMessage { display:none; margin-top:15px; padding:12px; background:#d1e7dd; color:#0f5132; border:1px solid #badbcc; border-radius:6px; text-align:center; font-weight:700; }
+
+    footer{margin-top:34px;color:var(--muted);font-size:13px;text-align:center;}
+
+    /* Responsividad */
+    @media (max-width: 920px) { .card { flex: 1 1 calc(50% - 26px); } }
+    @media (max-width: 560px) { .card { flex: 1 1 100%; } }
+  </style>
+</head>
+<body>
+
+  <button class="btn-close" onclick="window.history.back()" aria-label="Volver">×</button>
+
+  <div class="wrap">
+    <header>
+      <h1>Planes de Nube - Básico</h1>
+      <p>Precios económicos y simples. Elegí el que más te sirva.</p>
+    </header>
+
+    <section class="plans">
+      <article class="card">
+        <div class="head"><h3>BÁSICO</h3><div class="price">$5.000 /mes</div></div>
+        <div class="body">
+          <ul>
+            <li>400 Gb de espacio libre</li>
+            <li>5 Gb de transferencia</li>
+            <li>100% Privado</li>
+            <li>Staff 24/7</li>
+          </ul>
+          <div class="buy-row"><button class="btn-buy" onclick="openForm('BÁSICO')">Comprar</button></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="head"><h3>MEDIO</h3><div class="price">$8.000 /mes</div></div>
+        <div class="body">
+          <ul>
+            <li>800 Gb de espacio libre</li>
+            <li>10 Gb de transferencia</li>
+            <li>100% Privado</li>
+            <li>Staff 24/7</li>
+          </ul>
+          <div class="buy-row"><button class="btn-buy" onclick="openForm('MEDIO')">Comprar</button></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="head"><h3>AVANZADO</h3><div class="price">$12.000 /mes</div></div>
+        <div class="body">
+          <ul>
+            <li>2 Tb de espacio libre</li>
+            <li>30 Gb de transferencia</li>
+            <li>100% Privado</li>
+            <li>Staff 24/7</li>
+          </ul>
+          <div class="buy-row"><button class="btn-buy" onclick="openForm('AVANZADO')">Comprar</button></div>
+        </div>
+      </article>
+    </section>
+
+    <div id="formMessage">
+        ¡Enviado! Dentro de poco nos vamos a poner en contacto con ustedes vía Gmail o WhatsApp.
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-backdrop">
+    <div class="modal">
+      <header>
+        <h2>Comprar plan</h2>
+        <button class="close" onclick="closeForm()">✕</button>
+      </header>
+
+      <form id="buyForm">
+        <div style="margin-bottom:8px;font-size:14px;color:#374654;">
+          Complete los datos. Nos comunicaremos pronto para continuar la compra.
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Nombre completo</label>
+            <input name="fullname" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Teléfono</label>
+            <input name="phone" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input name="email" type="email" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Plan</label>
+            <select name="plan">
+              <option>BÁSICO</option>
+              <option>MEDIO</option>
+              <option>AVANZADO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-muted" onclick="closeForm()">Cancelar</button>
+          <button type="submit" class="btn-submit">Enviar solicitud</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const formMessage = document.getElementById('formMessage');
+
+    function openForm(plan) {
+      modal.classList.add('show');
+      modal.querySelector('select[name="plan"]').value = plan;
+    }
+
+    function closeForm() {
+      modal.classList.remove('show');
+      document.getElementById('buyForm').reset();
+    }
+
+    const STORAGE_KEY = "rh_submissions_v3";
+
+    document.getElementById('buyForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const formData = new FormData(this);
+        const entry = {
+            id: 'id_' + Date.now(),
+            created_at: new Date().toISOString(),
+            status: "Nueva",
+            note: "",
+            fullname: formData.get('fullname'),
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            plan: formData.get('plan')
+        };
+        const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        arr.unshift(entry);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+
+        // Mostrar mensaje de éxito
+        formMessage.style.display = 'block';
+        this.reset();
+        closeForm();
+    });
+  </script>
+
+ <!--SEGURIDAD-->
+
+ <script src="js/lock-site.js"></script>
+
+
+</body>
+</html>

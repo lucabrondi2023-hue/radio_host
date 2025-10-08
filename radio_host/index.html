@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Web Hosting Argentina - Radio Host</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Webhosting rápido y con asistencia personalizada. Con panel de control, sistema automático de instalaciones, garantía de servicio." />
+	<meta name="keywords" content="Radio Host, patagonia, host, hosting, argentina, servidor, servidores, server, php, cpanel, mysql, base de datos, barato, rapido, anual, mensual">
+	<meta name="author" content="Radio Host">
+	<link rel="icon" type="image/vnd.microsoft.icon" href="logoico.ico">
+
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+
+	<style>
+	/* Botones */
+	.btn-vermas {
+		display: inline-block;
+		background: linear-gradient(135deg, #007BFF, #00BFFF);
+		color: white;
+		padding: 10px 22px;
+		border-radius: 30px;
+		text-decoration: none;
+		font-weight: bold;
+		transition: all 0.3s ease;
+		margin-top: 10px;
+	}
+	.btn-vermas:hover {
+		background: linear-gradient(135deg, #0056b3, #0099cc);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+	}
+	.contact_btn {
+		display:inline-block;
+		background:#2aa6ff;
+		color:#fff;
+		padding:10px 20px;
+		border-radius:8px;
+		text-decoration:none;
+		font-weight:bold;
+		transition:0.3s;
+	}
+	.contact_btn:hover{
+		background:#007bff;
+	}
+	#formMessage {
+		display:none;
+		margin-top:15px;
+		padding:12px;
+		background:#d1e7dd;
+		color:#0f5132;
+		border:1px solid #badbcc;
+		border-radius:6px;
+		text-align:center;
+		font-weight:700;
+	}
+
+	/* PLANES MEJORADOS */
+	.plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+	.plan-card {
+	  background: #ffffff;
+	  color: #000000;
+	  padding: 24px;
+	  border-radius: 16px;
+	  box-shadow: 0 8px 20px rgb(0, 4, 255);
+	  transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+	.plan-card:hover {
+	  transform: translateY(-6px);
+	  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.603);
+	}
+	.plan-header h3 {
+	  margin: 0 0 8px;
+	  font-size: 1.5em;
+	}
+	.plan-header .price {
+	  font-size: 1.2em;
+	  font-weight: 700;
+	  margin-bottom: 16px;
+	}
+	.plan-card ul {
+	  list-style: none;
+	  padding: 0;
+	  margin: 0 0 20px;
+	}
+	.plan-card ul li {
+	  margin-bottom: 8px;
+	  line-height: 1.4em;
+	}
+	.plans-desc {
+	  text-align: center;
+	  margin-top: 40px;
+	}
+	.plans-desc h3 {
+	  font-size: 1.2em;
+	  margin-bottom: 15px;
+	}
+	</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+	<div class="header_top">
+		<div class="container">
+			<div class="col-sm-6 header-top-left">
+				<div class="box">
+					<select tabindex="4" class="dropdown drop">
+						<option value="" class="label" value="">Pesos (ARS)</option>
+						<option value="1">Pesos (ARS)</option>
+					</select>
+				</div>
+				<div class="box1">
+					<select tabindex="4" class="dropdown">
+						<option value="" class="label" value="">Español</option>
+						<option value="1">Español</option>
+					</select>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="col-sm-6 header-top-right">
+				<div class="col-xs-7 phone"><p>Soporte 24/7 info@RadioHost.com</p></div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="header_bottom">
+			<div class="col-xs-3 logo">
+				<a href="index.html"><img src="images/logo.png" alt=""/></a>
+			</div>
+			<div class="col-xs-9 header_nav">
+				<div class="col-md-6 menu">
+					<a class="toggleMenu" href="#"><img src="images/nav_icon.png" alt="" /> </a>
+					<ul class="nav" id="nav">
+						<li class="current"><a href="index.html">Inicio</a></li>
+						<li><a href="#planes">Planes</a></li>
+						<li><a href="#nosotros">Nosotros</a></li>
+					</ul>
+					<script type="text/javascript" src="js/responsive-nav.js"></script>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="header_bot_grid">
+		<h1>Web Hosting empresarial - Radio Host</h1>
+		<div class="header-btns">
+			<a class="plans btn btn-primary1 btn-normal btn-inline" href="#planes">Ver planes</a>
+		</div>
+	</div>
+</div>
+
+<!-- VENTAJAS -->
+<div class="content_top">
+	<div class="container">
+		<div class="col-md-3 grid_1"><i class="time"></i><h3>99.99% Uptime</h3></div>
+		<div class="col-md-3 grid_1"><i class="platform"></i><h3>Multi plataforma</h3></div>
+		<div class="col-md-3 grid_1"><i class="fast"></i><h3>Super rápido (100% SSD)</h3></div>
+		<div class="col-md-3 grid_1"><i class="data"></i><h3>Backups automáticos</h3></div>
+	</div>
+</div>
+
+<!-- PLANES -->
+<div class="content_bottom" id="planes">
+	<div class="container">
+		<div class="box3"><h2>Precios económicos y simples. Siempre.</h2></div>
+		<div class="plans-grid">
+			<div class="plan-card">
+				<div class="plan-header">
+					<h3>HOST NUBE</h3>
+					<p class="price"><small>DESDE/</small> $5.000</p>
+				</div>
+				<ul>
+					<li>Almacenamiento en la nube de alto rendimiento</li>
+					<li>Conexión rápida y estable las 24 hs</li>
+					<li>Seguridad avanzada y respaldo diario</li>
+					<li>Sin límites, sin complicaciones</li>
+					<li>Perfecto para proyectos y negocios online</li>
+					<li>Crece a tu ritmo, sin límites</li>
+				</ul>
+				<a class="btn-vermas" href="planes/planbasico.html">Ver más</a>
+			</div>
+
+			<div class="plan-card">
+				<div class="plan-header">
+					<h3>HOST WEB</h3>
+					<p class="price"><small>DESDE/</small> $15.000</p>
+				</div>
+				<ul>
+					<li>Hosting veloz y estable</li>
+					<li>Tu sitio online las 24 horas</li>
+					<li>5 bases de datos MySQL</li>
+					<li>Soporte real, sin vueltas</li>
+					<li>Panel fácil y completo</li>
+					<li>Seguridad y copias automáticas</li>
+					<li>¡Listo para hacer crecer tu web!</li>
+				</ul>
+				<a class="btn-vermas" href="planes.html?plan=medio">Ver más</a>
+			</div>
+
+			<div class="plan-card">
+				<div class="plan-header">
+					<h3>VPS JUEGOS</h3>
+					<p class="price"><small>DESDE/</small> $20.000</p>
+				</div>
+				<ul>
+					<li>Rendimiento extremo sin lag</li>
+					<li>Servidores estables 24/7</li>
+					<li>Baja latencia y conexión ultra rápida</li>
+					<li>Protección anti-DDoS incluida</li>
+					<li>Jugá sin interrupciones, sin límites</li>
+				</ul>
+				<a class="btn-vermas" href="planes.html?plan=premium">Ver más</a>
+			</div>
+
+			<div class="plan-card">
+				<div class="plan-header">
+					<h3>DISEÑO WEB</h3>
+					<p class="price"><small>DESDE/</small> $50.000</p>
+				</div>
+				<ul>
+					<li>Diseño profesional y responsivo</li>
+					<li>Optimización para SEO y velocidad</li>
+					<li>Soporte y mantenimiento incluidos</li>
+					<li>Actualizaciones periódicas</li>
+					<li>Perfecto para tu negocio online</li>
+				</ul>
+				<a class="btn-vermas" href="planes.html?plan=premium">Ver más</a>
+			</div>
+		</div>
+
+		<div class="plans-desc">
+			<h3>¿Necesitás planes personalizados, servidores virtuales o asistencia adicional?</h3>
+			<a class="contact_btn" href="#contacto">Contactanos</a>
+		</div>
+
+		<div class="plans-desc">
+			<h3>¿Ya sabés qué comprar? ¡Contactate ya!</h3>
+			<a class="contact_btn" href="#contacto">Contactanos</a>
+		</div>
+	</div>
+</div>
+
+<!-- NOSOTROS -->
+<div class="about_grid" id="nosotros">
+	<div class="container">
+		<div class="span_1 span_3">
+			<h4>Sobre nosotros</h4>
+			<p>OFRECEMOS EL MEJOR SERVICIO EMPRESARIAL DE ADMINISTRACIÓN DE SERVIDORES</p>
+		</div>
+		<div class="span_5">
+			<div class="col-md-5 span_5-left">
+				<p class="m_1">Radio Hosting brinda garantía y opciones para todo tipo de requerimientos, ofreciendo herramientas de fácil administración. Además proveemos servidores dedicados para empresas o proyectos con alta demanda tecnológica.</p>
+				<p class="m_2">Ofrecemos atención los 365 días del año, las 24 hs, con los mejores canales de soporte empresarial.</p>
+			</div>
+			<div class="col-md-7">
+				<div class="span_5-right"><span> </span></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
+<!-- FORMULARIO DE CONTACTO -->
+<div id="contacto" style="padding:30px; background:#f3f4f600; margin-top:50px;">
+   <h2>Formulario de contacto</h2>
+    <form id="contactForm" style="max-width:500px; margin:auto;">
+        <div style="margin-bottom:10px;">
+            <label>Nombre completo</label>
+            <input type="text" name="fullname" required style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc;">
+        </div>
+        <div style="margin-bottom:10px;">
+            <label>Teléfono</label>
+            <input type="text" name="phone" required style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc;">
+        </div>
+        <div style="margin-bottom:10px;">
+            <label>Email</label>
+            <input type="email" name="email" required style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc;">
+        </div>
+        <div style="margin-bottom:10px;">
+            <label>Plan (opcional)</label>
+            <select name="plan" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc;">
+                <option>CONSULTA</option>
+                <option>COMPRAR PLAN ( BÁSICO )</option>
+                <option>COMPRAR PLAN ( WEB )</option>
+                <option>COMPRAR PLAN ( VPS JUEGOS )</option>
+                <option>VPS PERSONALIZADA</option>
+                <option>SOPORTE</option>
+            </select>
+        </div>
+        <div style="margin-bottom:10px;">
+            <label>Mensaje</label>
+            <textarea name="message" rows="5" placeholder="Escribí tu mensaje aquí..." style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc;"></textarea>
+        </div>
+        <button type="submit" style="padding:10px 16px; border:none; border-radius:6px; background:#0064ff; color:#fff; cursor:pointer; font-weight:700;">Enviar</button>
+    </form>
+    <div id="formMessage">Enviado. Dentro de poco nos vamos a poner en contacto con ustedes vía Gmail o WhatsApp.</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+	<div class="container">
+		<p><a href="index.html">Radio Host desde 2025 con el mejor Servicio</a></p>
+	</div>
+</div>
+
+<!-- SCRIPTS -->
+<script type="text/javascript">
+$(document).on('click', 'a[href^="#"]', function(e) {
+	var id = $(this).attr('href');
+	var $id = $(id);
+	if ($id.length === 0) return;
+	e.preventDefault();
+	var pos = $id.offset().top;
+	$('body, html').animate({scrollTop: pos});
+});
+
+// FORMULARIO localStorage
+const STORAGE_KEY = "rh_submissions_v3";
+
+document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    const entry = {
+        id: 'id_' + Date.now(),
+        created_at: new Date().toISOString(),
+        status: "Nueva",
+        note: "",
+        fullname: formData.get('fullname'),
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        plan: formData.get('plan'),
+        message: formData.get('message')
+    };
+
+    const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    arr.unshift(entry);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+
+    const msg = document.getElementById('formMessage');
+    msg.style.display = 'block';
+    this.reset();
+});
+</script>
+
+<!--SEGURIDAD-->
+
+<script src="js/lock-site.js"></script>
+
+</body>
+</html>
